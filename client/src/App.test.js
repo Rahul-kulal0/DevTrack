@@ -1,8 +1,8 @@
 import { render, screen } from '@testing-library/react';
 import App from './App';
 
-test('renders DevTrack app title', () => {
+test('renders the login screen initially', () => {
   render(<App />);
-  const titleElement = screen.getByText(/DevTrack/i);
-  expect(titleElement).toBeInTheDocument();
+  const welcomeText = screen.getByText(/Welcome Back/i);
+  expect(welcomeText).toBeInTheDocument();
 });
