@@ -1,7 +1,10 @@
 import React, { useState, useEffect, useCallback } from 'react';
 
+<<<<<<< HEAD
 const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:5000';
 
+=======
+>>>>>>> 0956932831296c22288541f9a6aff055888c5eb0
 const Dashboard = ({ token, onLogout }) => {
   const [tasks, setTasks] = useState([]);
   const [newTask, setNewTask] = useState({ title: '', description: '' });
@@ -12,7 +15,11 @@ const Dashboard = ({ token, onLogout }) => {
 
   const fetchTasks = useCallback(async () => {
     try {
+<<<<<<< HEAD
       const res = await fetch(`${API_URL}/api/tasks`, {
+=======
+      const res = await fetch('http://localhost:5000/api/tasks', {
+>>>>>>> 0956932831296c22288541f9a6aff055888c5eb0
         headers: { Authorization: `Bearer ${token}` }
       });
       if (!res.ok) throw new Error('Failed to fetch tasks');
@@ -34,7 +41,11 @@ const Dashboard = ({ token, onLogout }) => {
     if (!newTask.title.trim()) return;
 
     try {
+<<<<<<< HEAD
       const res = await fetch(`${API_URL}/api/tasks`, {
+=======
+      const res = await fetch('http://localhost:5000/api/tasks', {
+>>>>>>> 0956932831296c22288541f9a6aff055888c5eb0
         method: 'POST',
         headers: { 
           'Content-Type': 'application/json',
@@ -57,7 +68,11 @@ const Dashboard = ({ token, onLogout }) => {
     const nextStatus = statuses[(statuses.indexOf(currentStatus || 'todo') + 1) % statuses.length];
 
     try {
+<<<<<<< HEAD
       const res = await fetch(`${API_URL}/api/tasks/${id}`, {
+=======
+      const res = await fetch(`http://localhost:5000/api/tasks/${id}`, {
+>>>>>>> 0956932831296c22288541f9a6aff055888c5eb0
         method: 'PUT',
         headers: { 
           'Content-Type': 'application/json',
@@ -77,7 +92,11 @@ const Dashboard = ({ token, onLogout }) => {
   const handleDelete = async (id) => {
     if (!window.confirm('Delete this task?')) return;
     try {
+<<<<<<< HEAD
       const res = await fetch(`${API_URL}/api/tasks/${id}`, {
+=======
+      const res = await fetch(`http://localhost:5000/api/tasks/${id}`, {
+>>>>>>> 0956932831296c22288541f9a6aff055888c5eb0
         method: 'DELETE',
         headers: { Authorization: `Bearer ${token}` }
       });

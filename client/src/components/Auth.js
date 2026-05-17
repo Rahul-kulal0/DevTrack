@@ -23,8 +23,12 @@ const Auth = ({ onAuthSuccess }) => {
       : formData;
 
     try {
+<<<<<<< HEAD
       const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:5000';
       const res = await fetch(`${API_URL}${endpoint}`, {
+=======
+      const res = await fetch(`http://localhost:5000${endpoint}`, {
+>>>>>>> 0956932831296c22288541f9a6aff055888c5eb0
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(payload)
