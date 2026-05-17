@@ -1,0 +1,49 @@
+name: DevTrack CI/CD Pipeline
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v3
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+
+      - name: Install Client Dependencies
+        run: cd client && npm install
+
+      - name: Test Client
+        run: cd client && npm test -- --passWithNoTests
+
+      - name: Install Server Dependencies
+        run: cd server && npm install
+
+      - name: Test Server
+        run: cd server && npm test
+
+  docker-build:
+    needs: build-and-test
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/main'
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v3
+
+      - name: Build Client Docker Image
+        run: docker build -t devtrack-client ./client
+
+      - name: Build Server Docker Image
+        run: docker build -t devtrack-server ./server
+
+  # AWS EC2 Deployment step has been removed for demonstration purposes
