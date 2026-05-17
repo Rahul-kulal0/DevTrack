@@ -39,9 +39,9 @@ const Auth = ({ onAuthSuccess }) => {
 
       // Success
       localStorage.setItem('token', data.token);
-      localStorage.setItem('user', JSON.stringify({ id: data._id, name: data.name, email: data.email }));
+      localStorage.setItem('user', JSON.stringify({ id: data._id, name: data.name, email: data.email, role: data.role }));
 
-      onAuthSuccess(data.token);
+      onAuthSuccess(data.token, data.role);
     } catch (err) {
       setError(err.message);
     } finally {

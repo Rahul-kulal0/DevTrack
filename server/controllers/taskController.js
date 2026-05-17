@@ -1,4 +1,5 @@
 const Task = require("../models/Task");
+const ActivityLog = require("../models/ActivityLog");
 
 // Create Task
 const createTask = async (req, res) => {
@@ -8,6 +9,13 @@ const createTask = async (req, res) => {
     user: req.user._id,
     title,
     description
+  });
+
+  await ActivityLog.create({
+    action: "Task Created",
+    details: `Task "${title}" created.`,
+    performedBy: req.user._id,
+    targetTask: task._id
   });
 
   res.status(201).json(task);
@@ -41,6 +49,13 @@ const deleteTask = async (req, res) => {
 
   if (task) {
     await task.deleteOne();
+    
+    await ActivityLog.create({
+      action: "Task Deleted",
+      details: `Task "${task.title}" deleted.`,
+      performedBy: req.user._id
+    });
+
     res.json({ message: "Task removed" });
   } else {
     res.status(404).json({ message: "Task not found" });

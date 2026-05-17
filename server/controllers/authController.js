@@ -1,4 +1,5 @@
 const User = require("../models/User");
+const ActivityLog = require("../models/ActivityLog");
 const bcrypt = require("bcryptjs");
 const generateToken = require("../utils/generateToken");
 
@@ -20,10 +21,17 @@ const registerUser = async (req, res) => {
     password: hashedPassword
   });
 
+  await ActivityLog.create({
+    action: "User Registered",
+    details: `New user ${name} (${email}) signed up.`,
+    performedBy: user._id
+  });
+
   res.status(201).json({
     _id: user._id,
     name: user.name,
     email: user.email,
+    role: user.role,
     token: generateToken(user._id)
   });
 };
@@ -35,10 +43,17 @@ const loginUser = async (req, res) => {
   const user = await User.findOne({ email });
 
   if (user && (await bcrypt.compare(password, user.password))) {
+    await ActivityLog.create({
+      action: "User Login",
+      details: `${user.email} logged in.`,
+      performedBy: user._id
+    });
+
     res.json({
       _id: user._id,
       name: user.name,
       email: user.email,
+      role: user.role,
       token: generateToken(user._id)
     });
   } else {
