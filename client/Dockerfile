@@ -1,9 +1,7 @@
 # Build stage
-<<<<<<< HEAD
 FROM node:20-alpine as build
-=======
-FROM node:18-alpine as build
->>>>>>> 0956932831296c22288541f9a6aff055888c5eb0
+ARG REACT_APP_API_URL
+ENV REACT_APP_API_URL=$REACT_APP_API_URL
 WORKDIR /app
 COPY package*.json ./
 RUN npm install
