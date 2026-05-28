@@ -23,7 +23,7 @@ const Auth = ({ onAuthSuccess }) => {
       : formData;
 
     try {
-      const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:5000';
+      const API_URL = process.env.REACT_APP_API_URL || 'http://16.16.182.156:5000';
 
       const res = await fetch(`${API_URL}${endpoint}`, {
         method: 'POST',
