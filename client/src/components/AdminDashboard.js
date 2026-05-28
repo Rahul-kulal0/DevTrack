@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useCallback } from 'react';
 
-const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:5000';
+const API_URL = process.env.REACT_APP_API_URL || 'http://16.16.182.156:5000';
 
 const AdminDashboard = ({ token, onLogout }) => {
   const [activeTab, setActiveTab] = useState('overview');
@@ -13,7 +13,9 @@ const AdminDashboard = ({ token, onLogout }) => {
   const fetchStats = useCallback(async () => {
     try {
       const res = await fetch(`${API_URL}/api/admin/stats`, {
-        headers: { Authorization: `Bearer ${token}` }
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
       });
       if (res.ok) setStats(await res.json());
     } catch (err) { console.error(err); }
